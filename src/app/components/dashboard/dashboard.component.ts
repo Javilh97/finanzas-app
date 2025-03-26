@@ -4,6 +4,7 @@ import { Auth, onIdTokenChanged, signOut } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { FinanzasService, Transaccion } from '../../services/finanzas.service';
 
+
 // interface Transaccion {
 //   id?: string,
 //   descripcion: string,

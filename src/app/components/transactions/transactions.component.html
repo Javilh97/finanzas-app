@@ -1,1 +1,12 @@
-<p>transactions works!</p>
+<h2>Resumen Financiero</h2>
+<p><strong>Total de ingresos: </strong> {{totalIngresos | currency}}</p>
+<p><strong>Total de gastos: </strong>{{totalGastos | currency}}</p>
+<p><strong>Balance General: </strong>{{balanceGeneral | currency}}</p>
+
+<h3 class="text-2xl font-bold mb-2">Transacciones</h3>
+    <ul class="bg-white rounded-lg shadow p-4 mb-4">
+      <li *ngFor="let transaccion of transacciones" class="mb-2">
+        {{ transaccion.descripcion }} - {{ transaccion.monto | currency }} ({{ transaccion.tipo }})
+        <!-- <button (click)="eliminarTransaccion(transaccion)" class="text-red-600">Eliminar</button> -->
+      </li>
+    </ul>
