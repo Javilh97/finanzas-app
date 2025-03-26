@@ -23,7 +23,7 @@ export class LoginComponent {
   ){
     this.loginForm = this.fb.group({
       email: ['', [Validators.required,Validators.email]],
-      password: ['',[Validators.required, Validators.minLength(8)]],
+      password: ['',[Validators.required, Validators.minLength(6)]],
     });
   }
 
@@ -38,11 +38,17 @@ export class LoginComponent {
 
     try {
       await signInWithEmailAndPassword(this.auth, email, password);
-      this.router.navigate(['/dashboard']);
+      this.router.navigate(['dashboard']);
     } catch (error){
-      this.errorMessage = 'Error al iniciar sesión. Verifica tus credenciales.'
+      this.errorMessage = 'Error al iniciar sesión. Verifica tus credenciales.';      
       console.log('Error al iniciar sesión', error);
     }
+  }
+
+  goToRegister(){
+    this.router.navigate(['register']);
+    console.log('Entra');
+    
   }
 
 }

@@ -1,1 +1,35 @@
-<p>dashboard works!</p>
+
+<button (click)="onLogout()">Cerrar sesión</button>
+
+<div class="p-6 bg-gray-100 min-h-screen">
+    <h2 class="text-3xl font-bold mb-4">Panel de Gestión Financiera</h2>
+  
+    <!-- Resumen Financiero -->
+    <div class="grid grid-cols-3 gap-4 mb-6">
+      <div class="bg-green-200 p-4 rounded-lg shadow">
+        <h3 class="text-xl font-semibold">Ingresos</h3>
+        <p class="text-2xl font-bold">💵 {{ ingresos | currency }}</p>
+      </div>
+      <div class="bg-red-200 p-4 rounded-lg shadow">
+        <h3 class="text-xl font-semibold">Gastos</h3>
+        <p class="text-2xl font-bold">💸 {{ gastos | currency }}</p>
+      </div>
+      <div class="bg-blue-200 p-4 rounded-lg shadow">
+        <h3 class="text-xl font-semibold">Saldo Disponible</h3>
+        <p class="text-2xl font-bold">💰 {{ saldo | currency }}</p>
+      </div>
+    </div>
+  
+    <!-- Lista de Transacciones -->
+    <h3 class="text-2xl font-bold mb-2">Transacciones</h3>
+    <ul class="bg-white rounded-lg shadow p-4 mb-4">
+      <li *ngFor="let transaccion of transacciones" class="mb-2">
+        {{ transaccion.descripcion }} - {{ transaccion.monto | currency }} ({{ transaccion.tipo }})
+        <button (click)="eliminarTransaccion(transaccion)" class="text-red-600">Eliminar</button>
+      </li>
+    </ul>
+  
+    <!-- Botones de Acción -->
+    <button (click)="agregarTransaccion()" class="bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600">Agregar Transacción</button>
+  </div>
+  

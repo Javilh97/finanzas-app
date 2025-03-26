@@ -1,3 +1,7 @@
+import { initializeApp } from "@angular/fire/app";
+import { getAuth } from "@angular/fire/auth";
+import { getFirestore } from "@angular/fire/firestore";
+
 // src/environments/environment.ts
 export const environment = {
     firebase: {
@@ -12,3 +16,6 @@ export const environment = {
     production: false
   };
   
+  // const app = initializeApp(environment.firebase);
+  // export const auth = getAuth(app);
+  // export const db = getFirestore(app)
