@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/finanzas-app",
+    "public": "dist",
     "ignore": [
       "firebase.json",
       "**/.*",
