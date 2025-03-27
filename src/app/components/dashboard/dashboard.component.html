@@ -23,9 +23,9 @@
     <!-- Filtro y busqueda -->
      <div class="flex gap-4 items-center mb-4">
       <!-- Filtro por coincidencia -->
-      <input type="text" placeholder="Buscar" [(ngModel)]="filtros.descripcion" class="p-2 border rounded">
+      <input type="text" placeholder="Buscar" [(ngModel)]="filtros.descripcion" (input)="filtrarTransacciones()" class="p-2 border rounded">
       <!-- Filtro por categoria -->
-      <select [(ngModel)]="filtros.categoria" class="p-2 border rounded">
+      <select [(ngModel)]="filtros.categoria" (change)="filtrarTransacciones()" class="p-2 border rounded">
         <option value="">Todas las categorias</option>
         <option value="Ingreso">Ingreso</option>
         <option value="Gasto">Gasto</option>
@@ -33,14 +33,14 @@
      </div>
 
      <!-- Filtro por rango de fechas -->
-      <input type="date" [(ngModel)]="filtros.fechaInicio" class="p-2 border rounded">
-      <input type="date" [(ngModel)]="filtros.fechaFin" class="p-2 border rounded">
+      <input type="date" [(ngModel)]="filtros.fechaInicio" (change)="filtrarTransacciones()" class="p-2 border rounded">
+      <input type="date" [(ngModel)]="filtros.fechaFin" (change)="filtrarTransacciones()" class="p-2 border rounded">
   
     <!-- Lista de Transacciones -->
     <!-- <app-transactions /> -->
     <h3 class="text-2xl font-bold mb-2">Transacciones</h3>
     <ul class="bg-white rounded-lg shadow p-4 mb-4">
-      <li *ngFor="let transaccion of transacciones" class="mb-2">
+      <li *ngFor="let transaccion of transaccionesFiltradas" class="mb-2">
         {{ transaccion.descripcion }} - {{ transaccion.monto | currency }} ({{ transaccion.tipo }})
         <button (click)="eliminarTransaccion(transaccion)" class="text-red-600">Eliminar</button>
       </li>

@@ -25,6 +25,7 @@ interface Transaccion1 {
 export class DashboardComponent implements OnInit {
 
   transacciones: Transaccion[] = [];
+  // transacciones1: Transaccion1[] = [];
   transaccionesFiltradas: Transaccion1[] = [];
   ingresos = 0;
   gastos = 0;
@@ -71,9 +72,11 @@ export class DashboardComponent implements OnInit {
     const descripcion = prompt('Descripcion de la transaccion: ');
     const monto = parseFloat(prompt('Monto:') || '0');
     const tipo = confirm('Es un ingreso? ') ? 'Ingreso' : 'Gasto';
+    const categoria = confirm('Que categoria es: ') ? 'Verduras' : 'Chuches';
+    const fecha = new Date();
 
     if(!isNaN(monto) && descripcion){
-      const nuevaTransaccion: Transaccion = { descripcion, monto, tipo };
+      const nuevaTransaccion: Transaccion = { descripcion, monto, tipo, categoria, fecha };
       // this.transacciones.push(nuevaTransaccion);
       await this.finanzas.agregarTransaccion(nuevaTransaccion);
       this.actualizarResumen();
@@ -112,11 +115,22 @@ export class DashboardComponent implements OnInit {
   }
 
   filtrarTransacciones(){
-    // this.transaccionesFiltradas = this.transacciones.filter(transaccion => {
-    //   const coincideDescripcion = transaccion.descripcion
-    //     .toLowerCase()
-    //     .includes(this.filtros.descripcion.toLowerCase());
-    // })
+    console.log('entrar');
+    
+    this.transaccionesFiltradas = this.transacciones.filter(transaccion => {
+      const coincideDescripcion = transaccion.descripcion
+        .toLowerCase()
+        .includes(this.filtros.descripcion.toLowerCase());
+
+
+        const coincideCategoria = !this.filtros.categoria || transaccion.categoria  === this.filtros.categoria;
+        const coincideFechaInicio = !this.filtros.fechaInicio || new Date(transaccion.fecha) >= new Date(this.filtros.fechaInicio);
+        const coincideFechaFin = !this.filtros.fechaFin || new Date(transaccion.fecha) <= new Date(this.filtros.fechaFin);
+
+        return coincideDescripcion && coincideCategoria && coincideFechaInicio && coincideFechaFin;
+    });
   }
+
+
 
 }

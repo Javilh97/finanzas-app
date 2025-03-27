@@ -6,7 +6,9 @@ export interface Transaccion {
   id?: string,
   descripcion: string,
   monto: number,
-  tipo: 'Ingreso' | 'Gasto'
+  tipo: 'Ingreso' | 'Gasto',
+  categoria: string,
+  fecha: Date
 }
 
 @Injectable({
