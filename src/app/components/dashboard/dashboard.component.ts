@@ -3,32 +3,45 @@ import { Component, OnInit } from '@angular/core';
 import { Auth, onIdTokenChanged, signOut } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { FinanzasService, Transaccion } from '../../services/finanzas.service';
+import { FormsModule } from '@angular/forms';
+import { Firestore } from '@angular/fire/firestore';
 
 
-// interface Transaccion {
-//   id?: string,
-//   descripcion: string,
-//   monto: number,
-//   tipo: 'Ingreso' | 'Gasto';
-// }
+interface Transaccion1 {
+  id?: string,
+  descripcion: string,
+  monto: number,
+  tipo: 'Ingreso' | 'Gasto';
+  categoria: string;
+  fecha: Date;
+}
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
 export class DashboardComponent implements OnInit {
 
   transacciones: Transaccion[] = [];
+  transaccionesFiltradas: Transaccion1[] = [];
   ingresos = 0;
   gastos = 0;
   saldo = 0;
 
+  filtros = {
+    descripcion: '',
+    categoria: '',
+    fechaInicio: '',
+    fechaFin: ''
+  }
+
   constructor(
     private auth: Auth,
     private router: Router,
-    private finanzas: FinanzasService
+    private finanzas: FinanzasService,
+    private firestore: Firestore
   ){}
 
   ngOnInit(): void {
@@ -96,6 +109,14 @@ export class DashboardComponent implements OnInit {
       console.log('Error al cerrar sesión.', error);
       
     }
+  }
+
+  filtrarTransacciones(){
+    // this.transaccionesFiltradas = this.transacciones.filter(transaccion => {
+    //   const coincideDescripcion = transaccion.descripcion
+    //     .toLowerCase()
+    //     .includes(this.filtros.descripcion.toLowerCase());
+    // })
   }
 
 }
