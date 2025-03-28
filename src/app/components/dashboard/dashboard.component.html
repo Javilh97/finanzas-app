@@ -8,18 +8,21 @@
     <div class="grid grid-cols-3 gap-4 mb-6">
       <div class="bg-green-200 p-4 rounded-lg shadow">
         <h3 class="text-xl font-semibold">Ingresos</h3>
-        <p class="text-2xl font-bold">💵 {{ ingresos | currency }}</p>
+        <p class="text-2xl font-bold"> {{ ingresos | currency }}</p>
       </div>
       <div class="bg-red-200 p-4 rounded-lg shadow">
         <h3 class="text-xl font-semibold">Gastos</h3>
-        <p class="text-2xl font-bold">💸 {{ gastos | currency }}</p>
+        <p class="text-2xl font-bold"> {{ gastos | currency }}</p>
       </div>
       <div class="bg-blue-200 p-4 rounded-lg shadow">
         <h3 class="text-xl font-semibold">Saldo Disponible</h3>
-        <p class="text-2xl font-bold">💰 {{ saldo | currency }}</p>
+        <p class="text-2xl font-bold"> {{ saldo | currency }}</p>
       </div>
     </div>
-  
+    
+    <!-- Graficos -->
+     <app-graficos />
+
     <!-- Lista de Transacciones -->
     <h3 class="text-2xl font-bold mb-2">Transacciones</h3>
     <ul class="bg-white rounded-lg shadow p-4 mb-4">

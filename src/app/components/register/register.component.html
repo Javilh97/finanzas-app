@@ -4,13 +4,13 @@
 
         <label for="">Email:</label>
         <input type="email" formControlName="email">
-        <div *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" >
+        <div class="error" *ngIf="registerForm.get('email')?.invalid && registerForm.get('email')?.touched" >
             El correo es obligatorio y debe ser valido.
         </div>
 
         <label for="">Contraseña:</label>
         <input type="password" formControlName="password">
-        <div *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
+        <div class="error" *ngIf="registerForm.get('password')?.invalid && registerForm.get('password')?.touched">
             La contraseña debe tener al menos 6 caracteres.
         </div>
 

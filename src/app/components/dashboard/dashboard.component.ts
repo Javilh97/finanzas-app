@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Auth, onIdTokenChanged, signOut } from '@angular/fire/auth';
 import { Router } from '@angular/router';
 import { FinanzasService, Transaccion } from '../../services/finanzas.service';
+import { GraficosComponent } from "../graficos/graficos.component";
 
 // interface Transaccion {
 //   id?: string,
@@ -13,7 +14,7 @@ import { FinanzasService, Transaccion } from '../../services/finanzas.service';
 
 @Component({
   selector: 'app-dashboard',
-  imports: [CommonModule],
+  imports: [CommonModule, GraficosComponent],
   templateUrl: './dashboard.component.html',
   styleUrl: './dashboard.component.css'
 })
@@ -51,15 +52,21 @@ export class DashboardComponent implements OnInit {
       this.actualizarResumen();
     })
 
+    // this.finanzas.getTransaccionesPorUsuario().subscribe(data => {
+    //   this.transacciones = data;
+    // })
+
   }
 
   async agregarTransaccion(){
     const descripcion = prompt('Descripcion de la transaccion: ');
     const monto = parseFloat(prompt('Monto:') || '0');
     const tipo = confirm('Es un ingreso? ') ? 'Ingreso' : 'Gasto';
-
+    const fecha = new Date();
+    console.log("Fecha ingresda", fecha);
+    
     if(!isNaN(monto) && descripcion){
-      const nuevaTransaccion: Transaccion = { descripcion, monto, tipo };
+      const nuevaTransaccion: Transaccion = { descripcion, monto, tipo, fecha };
       // this.transacciones.push(nuevaTransaccion);
       await this.finanzas.agregarTransaccion(nuevaTransaccion);
       this.actualizarResumen();

@@ -35,6 +35,14 @@
         background-color: #0056b3;
       }
     }
+
+    .ingresar{
+      background-color: green;
+    }
+
+    .ingresar:hover:not(:disabled){
+      background-color: #255F38 !important;
+    }
   
     .error-message {
       color: red;

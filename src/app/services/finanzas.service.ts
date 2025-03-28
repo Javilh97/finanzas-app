@@ -1,12 +1,16 @@
 import { Injectable } from '@angular/core';
-import { collection, addDoc, deleteDoc, doc, CollectionReference, onSnapshot } from '@firebase/firestore';
+import { collection, addDoc, deleteDoc, doc, CollectionReference, onSnapshot, Firestore, query, where } from '@firebase/firestore';
 import { db } from '../app.config';
+import { Auth, user } from '@angular/fire/auth';
+import { Observable, switchMap } from 'rxjs';
+import { collectionData } from '@angular/fire/firestore';
 
 export interface Transaccion {
   id?: string,
   descripcion: string,
   monto: number,
-  tipo: 'Ingreso' | 'Gasto'
+  tipo: 'Ingreso' | 'Gasto',
+  fecha: Date
 }
 
 @Injectable({
@@ -16,7 +20,10 @@ export class FinanzasService {
 
   private transaccionesRef: CollectionReference = collection(db, 'transacciones');
 
-  constructor() { }
+  constructor(
+    // private firestore: Firestore,
+    // private auth: Auth
+  ) { }
 
   obtenerTransacciones(callback: (transacciones: Transaccion[]) => void){
     onSnapshot(this.transaccionesRef, (snapshot) => {
@@ -27,6 +34,27 @@ export class FinanzasService {
       callback(transacciones);
     });
   }
+
+  // async addTransaction(transaccion: any){
+  //   const user = this.auth.currentUser;
+  //   if(user){
+  //     const transaccionesRef = collection(this.firestore, 'transacciones');
+  //     return addDoc(transaccionesRef, {...transaccion, uid: user.uid})
+  //   } else{
+  //     return
+  //   }
+  // }
+
+  // getTransaccionesPorUsuario(): Observable<any[]> {
+  //   return user(this.auth).pipe(
+  //     switchMap((user) => {
+  //       if(!user) return [];
+  //       const transaccionesRef = collection(this.firestore, 'transacciones');
+  //       const q = query(transaccionesRef, where('uid', '==', user.uid));
+  //       return collectionData(q, { idField: 'id' })
+  //     })
+  //   )
+  // }
 
   async agregarTransaccion(transaccion: Transaccion){
     await addDoc(this.transaccionesRef, transaccion);
